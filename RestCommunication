@@ -30,6 +30,7 @@ A. Under Synchronous Communication
 
         ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity("http://localhost:8082/api/departments/"+ employee.getDepartmentCode(), DepartmentDto.class);
         DepartmentDto departmentDto = responseEntity.getBody();
+
         Then Created a Separate APIResponseDTO which will have both employeeDto & departmentDto
         And Return that APIResponseDto(both employee details & department details) in the REST API getemployeeById.
         (As They have employee and department table has departmentCode in common)
@@ -37,3 +38,24 @@ A. Under Synchronous Communication
         Rest Template will be deprecated so spring advices us to use webClient.
 
 
+
+
+                                         2. Web Client
+
+      Now Lets see how to use Web Client to make REST API call from employee service to Department service.
+      Web-Client is a modern API which supports Sync , Async and streaming scenarios.
+
+      Web-Client is a part of Spring Web Flux Dependency.
+      Web-Client is a Reactive HTTP Client.
+
+      Development Steps:
+      1. Add Spring WebFlux Dependency
+      2. Configure WebClient as Spring Bean
+      3. Inject and use WebClient to Call the REST API
+      4. Test using Postman Client
+
+                webClient.get()
+                        .uri("http://localhost:8082/api/departments")   -> URL to get the department details
+                        .retrieve()                                     -> we need to retrieve
+                        .bodyToMono(DepartmentDto.class)                -> Return intype if DepartmentDTO
+                        .block();                                       -> As a Synchronous call

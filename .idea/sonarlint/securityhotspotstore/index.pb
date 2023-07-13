@@ -5,8 +5,6 @@ rdepartment-service/department-service/src/main/java/com/m2p/departmentservice/r
 ldepartment-service/department-service/src/main/java/com/m2p/departmentservice/service/DepartmentService.java,2\f\2fbcaddecd342b35fcec8fff1b9fecde22b831f8
 ]
 -department-service/department-service/pom.xml,9\3\933fc55c664b13940bd3c12a5e474551565d61ca
-Y
-)employee-service/employee-service/pom.xml,3\f\3f60819714387a9c27f1f07bd4e3a63563e926ca
 ›
 kdepartment-service/department-service/src/main/java/com/m2p/departmentservice/mapping/DepartmentMapper.java,3\1\312c7548228ee6a081643e2395f2cef799f2f2b2
 ”

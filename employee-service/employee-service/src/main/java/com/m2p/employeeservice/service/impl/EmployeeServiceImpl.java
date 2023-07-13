@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -19,8 +20,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
 
     // Injected the Rest Template
+//    @Autowired
+//    private RestTemplate restTemplate;
+
+
+    // Injected the WebClient
     @Autowired
-    private RestTemplate restTemplate;
+    private WebClient webClient;
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -33,8 +39,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public APIResponseDto getEmployeeById(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId).get();
         // Using Rest Template to hit the getDepartmentByCode API to get as every employee has unique Department Code
-        ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity("http://localhost:8082/api/departments/"+ employee.getDepartmentCode(), DepartmentDto.class);
-        DepartmentDto departmentDto = responseEntity.getBody();
+//        ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity("http://localhost:8082/api/departments/"+ employee.getDepartmentCode(), DepartmentDto.class);
+//        DepartmentDto departmentDto = responseEntity.getBody();
+
+        DepartmentDto departmentDto = webClient.get()
+                                            .uri("http://localhost:8082/api/departments")
+                                            .retrieve()
+                                            .bodyToMono(DepartmentDto.class)
+                                            .block();
 
         EmployeeDto employeeDto =  EmployeeMapper.MAPPER.maptoEmployeeDto(employee);
 
