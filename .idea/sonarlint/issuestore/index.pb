@@ -11,5 +11,3 @@ ddepartment-service/department-service/src/main/java/com/m2p/departmentservice/d
 kdepartment-service/department-service/src/main/java/com/m2p/departmentservice/mapping/DepartmentMapper.java,3\1\312c7548228ee6a081643e2395f2cef799f2f2b2
 ¥
 udepartment-service/department-service/src/main/java/com/m2p/departmentservice/service/impl/DepartmentServiceImpl.java,0\4\04168f921b811fa61fe6f401317c55680d3b7507
-¢
-rdepartment-service/department-service/src/main/java/com/m2p/departmentservice/controller/DepartmentController.java,e\7\e7ec279cdd4e29557cff33cdcdd2527777570bd7

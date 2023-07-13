@@ -6,6 +6,7 @@ import com.m2p.employeeservice.dto.EmployeeDto;
 import com.m2p.employeeservice.entity.Employee;
 import com.m2p.employeeservice.mapping.EmployeeMapper;
 import com.m2p.employeeservice.repository.EmployeeRepository;
+import com.m2p.employeeservice.service.APIClient;
 import com.m2p.employeeservice.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     // Injected the WebClient
+//    @Autowired
+//    private WebClient webClient;
+
     @Autowired
-    private WebClient webClient;
+    private APIClient apiClient;
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -38,15 +42,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public APIResponseDto getEmployeeById(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId).get();
+        // Rest Template Implementation
         // Using Rest Template to hit the getDepartmentByCode API to get as every employee has unique Department Code
 //        ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity("http://localhost:8082/api/departments/"+ employee.getDepartmentCode(), DepartmentDto.class);
 //        DepartmentDto departmentDto = responseEntity.getBody();
 
-        DepartmentDto departmentDto = webClient.get()
-                                            .uri("http://localhost:8082/api/departments")
-                                            .retrieve()
-                                            .bodyToMono(DepartmentDto.class)
-                                            .block();
+        //WebClient Implementation
+//        DepartmentDto departmentDto = webClient.get()
+//                                            .uri("http://localhost:8082/api/departments")
+//                                            .retrieve()
+//                                            .bodyToMono(DepartmentDto.class)
+//                                            .block();
+
+        // Open Feign Implementation
+        DepartmentDto departmentDto = apiClient.getDepartmentByCode(employee.getDepartmentCode());
 
         EmployeeDto employeeDto =  EmployeeMapper.MAPPER.maptoEmployeeDto(employee);
 

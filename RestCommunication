@@ -59,3 +59,58 @@ A. Under Synchronous Communication
                         .retrieve()                                     -> we need to retrieve
                         .bodyToMono(DepartmentDto.class)                -> Return intype if DepartmentDTO
                         .block();                                       -> As a Synchronous call
+
+
+
+                                        Spring Cloud Open Feign
+
+        Spring Cloud Open Feign Library to make REST API call from employee service to Department service.
+
+        It provides Declarative REST Client.Feign creates a dynamic implementation of an interface
+        decorated with JAXRS and Spring MVC Annotations.
+
+        Development Steps:
+        1. Add Spring Cloud Open Feign Maven Dependency to Employee Service.
+        2. Enable Feign Client using @EnableFeignClient
+        3. Create Feign API Client
+        4. Change the getEmployeeByID method to use APIClient
+        5. Test using PostMan Client.
+
+
+        Add the dependency management in POM.XML and ADD the properties for Spring Cloud Feign and the dependency
+        Annotate the Main Class with @EnableFeignClients
+        @EnableFeignClients = enables Component Scanning for interfaces that declare they are Feign Clients.
+        Now We have to Create a Feign Client in the service package as API Client and annotate it
+        with @FeignClient
+        The @FeignClient creates a Dynamic Implementation for the interface.
+        Within the APIClient we need to declare the method we need to make a API call
+        Here,
+        We are going to make a getDepartmentByCode from employee_service
+        Then add the getDepartmentByCode REST API inside API Client without the Implementation.
+        Also mention the base url if present in the Mapping Annotation.
+        Then also mention the localhost its running & name of the service we are calling in
+        @FeignClient Annotation.
+
+        Summary,
+        Every Employee has a Department code
+        & Department Entity also has a Department Code field.
+
+        So The Common Connection between two entities are DepartmentCode.
+
+        So when performing the getEmployeeById. it must return both employee details along with his department
+        details.
+
+        So We must make a Rest API call to the getDepartmentByCode in department-service from the employee-service
+        So we made use of Open Feign. in which we created a API Client inside which we define the method which we need to
+        make a REST API Call. API Client is a Interface so only the REST API Method must be defined without the
+        implementation. @FeignClient will provide the Dynamic Implementation.
+        Then Autowired it in service package and use it in the service impl. To get the department details DTO
+        And then return it as APIResponse which would contain both EmployeeDto and DepartmentDTO.
+
+
+
+
+
+
+
+
