@@ -1,5 +1,6 @@
 package com.m2p.employeeservice.controller;
 
+import com.m2p.employeeservice.dto.APIResponseDto;
 import com.m2p.employeeservice.dto.EmployeeDto;
 import com.m2p.employeeservice.entity.Employee;
 import com.m2p.employeeservice.service.impl.EmployeeServiceImpl;
@@ -23,9 +24,9 @@ public class EmployeeController {
     }
 
     @GetMapping("{employee-id}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable(name = "employee-id") Long employeeID)
+    public ResponseEntity<APIResponseDto> getEmployeeById(@PathVariable(name = "employee-id") Long employeeID)
     {
-        EmployeeDto employeeDto = employeeService.getEmployeeById(employeeID);
-        return new ResponseEntity<>(employeeDto,HttpStatus.OK);
+        APIResponseDto apiResponseDto = employeeService.getEmployeeById(employeeID);
+        return new ResponseEntity<>(apiResponseDto,HttpStatus.OK);
     }
 }

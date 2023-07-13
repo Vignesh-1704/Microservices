@@ -1,0 +1,39 @@
+We can perform 2 ways of Communication between 2 Microservices
+1. Synchronous Communication : HTTP/HTTPS
+2. Asynchronous Communication : Apache KAfka / Rabbit MQ
+
+A. Under Synchronous Communication
+   1. Rest Template
+   2. WebClient
+   3. Open Feign
+
+
+                                            1. Rest Template
+
+       Requirements:
+       1. Consider Employee belongs to a department.
+          & Employee has a unique Department code.
+       2. Change GET Employees REST API to return Employee along with its Department Code in response.
+
+        Development Steps:
+        1. Add Department Code field in Employee Entity.
+        2. Create Department DTO class
+        3. Configure Rest Template as Spring Bean
+        4. Inject and use Rest Template to make REST API call in EmployeeServiceImpl
+
+        What we basically did here is :
+        Created a field departmentCode in Employee Entity.
+        And Also Did the same in Employee DTO.
+        Created the Department DTO.
+        Created a Bean of Rest Template
+        Injected that into the ServiceImpl class
+
+        ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity("http://localhost:8082/api/departments/"+ employee.getDepartmentCode(), DepartmentDto.class);
+        DepartmentDto departmentDto = responseEntity.getBody();
+        Then Created a Separate APIResponseDTO which will have both employeeDto & departmentDto
+        And Return that APIResponseDto(both employee details & department details) in the REST API getemployeeById.
+        (As They have employee and department table has departmentCode in common)
+
+        Rest Template will be deprecated so spring advices us to use webClient.
+
+
